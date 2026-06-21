@@ -1,0 +1,67 @@
+.DS_Store
+node_modules
+.worktrees
+.sst
+.env
+.env.local
+.idea
+.vscode
+.codex
+*~
+playground
+tmp
+dist
+ts-dist
+.turbo
+**/.serena
+.serena/
+**/.omo
+.omo/
+/result
+refs
+Session.vim
+/opencode.json
+a.out
+target
+.scripts
+.direnv/
+
+# Local dev files
+opencode-dev
+UPCOMING_CHANGELOG.md
+logs/
+*.bun-build
+tsconfig.tsbuildinfo
+
+# xPeng Agent (private-agent) exclusions
+private-agent/build/
+private-agent/dist/
+private-agent/.cache/
+private-agent/.storage/
+private-agent/coverage/
+private-agent/.turbo/
+
+# Workspace user data (never committed)
+workspace/uploads/
+workspace/knowledge-base/embeddings/
+workspace/knowledge-base/index/
+workspace/knowledge-base/chunks/
+workspace/outputs/
+workspace/sessions/*.json
+workspace/sessions/session-history/
+workspace/sessions/workflow-state/
+workspace/projects/*/working/
+workspace/projects/*/drafts/
+!workspace/projects/.gitkeep
+!workspace/uploads/.gitkeep
+!workspace/knowledge-base/.gitkeep
+!workspace/outputs/.gitkeep
+!workspace/sessions/.gitkeep
+
+# Private memory (may contain sensitive user data)
+private-agent/memory/*.local.json
+private-agent/memory/*.cache.json
+
+# Local sandbox/scratch
+.sandbox/
+.scratch/

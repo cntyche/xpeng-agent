@@ -1,0 +1,11 @@
+.DS_Store
+*.log
+*.tmp
+.idea/
+.vscode/
+
+# Local-only dirs that should never be committed
+.sandbox/
+.scratch/
+
+# Keep empty placeholder dirs visible (whitelist .gitkeep via negation)
