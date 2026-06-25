@@ -1,7 +1,7 @@
 {
-  "name": "opencode",
-  "displayName": "opencode",
-  "description": "opencode for VS Code",
+  "name": "xpengagent",
+  "displayName": "xpengagent",
+  "description": "xpengagent for VS Code",
   "version": "1.17.8",
   "publisher": "sst-dev",
   "repository": {

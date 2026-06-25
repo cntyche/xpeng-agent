@@ -9,7 +9,7 @@ const lake = deployAws ? await import("./lake") : undefined
 ////////////////
 
 const cluster = planetscale.getDatabaseOutput({
-  name: "opencode",
+  name: "xpengagent",
   organization: "anomalyco",
 })
 

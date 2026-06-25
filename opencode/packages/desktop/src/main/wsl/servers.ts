@@ -3,7 +3,7 @@ import type {
   WslInstalledDistro,
   WslJob,
   WslOnlineDistro,
-  WslOpencodeCheck,
+  WslXpengagentCheck,
   WslRuntimeCheck,
   WslServerConfig,
   WslServerItem,
@@ -119,10 +119,10 @@ export function createWslServersController(
     updateServer(id, (item) => ({ ...item, runtime }))
   }
 
-  const setOpencodeCheck = (distro: string, check: WslOpencodeCheck) => {
+  const setOpencodeCheck = (distro: string, check: WslXpengagentCheck) => {
     setState({
-      opencodeChecks: {
-        ...state.opencodeChecks,
+      xpengagentChecks: {
+        ...state.xpengagentChecks,
         [distro]: check,
       },
     })
@@ -133,7 +133,7 @@ export function createWslServersController(
     const version = resolved
       ? await (options?.readCommandVersion ?? readWslCommandVersion)(resolved, distro, opts)
       : null
-    return opencodeCheck(distro, resolved, version, appVersion)
+    return xpengagentCheck(distro, resolved, version, appVersion)
   }
 
   const refreshOpencodeCheck = async (distro: string, opts?: { signal?: AbortSignal }) => {
@@ -152,7 +152,7 @@ export function createWslServersController(
       })
       .catch((error) => {
         const message = error instanceof Error ? error.message : String(error)
-        logger?.error("wsl opencode check failed", { id, distro, message })
+        logger?.error("wsl xpengagent check failed", { id, distro, message })
       })
   }
 
@@ -166,7 +166,7 @@ export function createWslServersController(
           })
           .catch((error) => {
             const message = error instanceof Error ? error.message : String(error)
-            logger?.error("wsl opencode check failed", {
+            logger?.error("wsl xpengagent check failed", {
               id: item.config.id,
               distro: item.config.distro,
               message,
@@ -334,20 +334,20 @@ export function createWslServersController(
       })
     },
 
-    async probeOpencode(name: string) {
-      await runJob({ kind: "probe-opencode", distro: name, startedAt: Date.now() }, async (abort) => {
+    async probeXpengagent(name: string) {
+      await runJob({ kind: "probe-xpengagent", distro: name, startedAt: Date.now() }, async (abort) => {
         await refreshOpencodeCheck(name, { signal: abort.signal })
       })
     },
 
-    async installOpencode(name: string) {
-      await runJob({ kind: "install-opencode", distro: name, startedAt: Date.now() }, async (abort) => {
+    async installXpengagent(name: string) {
+      await runJob({ kind: "install-xpengagent", distro: name, startedAt: Date.now() }, async (abort) => {
         const result = await installWslOpencode(appVersion, name, { signal: abort.signal })
         if (result.code !== 0) {
-          throw new Error(summarize(result.stderr || result.stdout) || "OpenCode installation failed")
+          throw new Error(summarize(result.stderr || result.stdout) || "XPENGagent installation failed")
         }
         await refreshOpencodeCheck(name, { signal: abort.signal })
-        expectOpencodeVersion(state.opencodeChecks[name]?.version ?? null, appVersion, name)
+        expectOpencodeVersion(state.xpengagentChecks[name]?.version ?? null, appVersion, name)
         const id = wslServerIdToRestart(state.servers, name)
         if (id) await startServer(id)
       })
@@ -382,7 +382,7 @@ export function createWslServersController(
       persistServers(remaining)
       setState({
         servers: state.servers.filter((item) => item.config.id !== id),
-        ...(distro ? clearWslDistroState(state.distroProbes, state.opencodeChecks, distro) : {}),
+        ...(distro ? clearWslDistroState(state.distroProbes, state.xpengagentChecks, distro) : {}),
       })
     },
 
@@ -408,7 +408,7 @@ function initialState(): WslServersState {
     installed: [],
     online: [],
     distroProbes: {},
-    opencodeChecks: {},
+    xpengagentChecks: {},
     pendingRestart: false,
     servers: [],
     job: null,
@@ -444,12 +444,12 @@ function normalizePersistedServer(value: unknown): WslServerConfig[] {
   ]
 }
 
-function opencodeCheck(
+function xpengagentCheck(
   distro: string,
   resolvedPath: string | null,
   version: string | null,
   expectedVersion: string,
-): WslOpencodeCheck {
+): WslXpengagentCheck {
   if (!resolvedPath) {
     return {
       distro,
@@ -457,7 +457,7 @@ function opencodeCheck(
       version: null,
       expectedVersion,
       matchesDesktop: null,
-      error: "opencode is not installed in this distro",
+      error: "xpengagent is not installed in this distro",
     }
   }
   if (!version) {
@@ -467,7 +467,7 @@ function opencodeCheck(
       version: null,
       expectedVersion,
       matchesDesktop: null,
-      error: "opencode is installed but could not run",
+      error: "xpengagent is installed but could not run",
     }
   }
   return {
@@ -490,7 +490,7 @@ export type {
   WslOnlineDistro,
   WslRuntimeCheck,
   WslDistroProbe,
-  WslOpencodeCheck,
+  WslXpengagentCheck,
   WslServerConfig,
   WslServerItem,
   WslServerRuntime,

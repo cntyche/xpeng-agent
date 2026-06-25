@@ -15,9 +15,9 @@ export const LLMGatewayPlugin = PluginV2.define({
           if (item.provider.api.package !== "@ai-sdk/openai-compatible") continue
           if (item.provider.api.url !== "https://api.llmgateway.io/v1") continue
           evt.provider.update(item.provider.id, (provider) => {
-            provider.request.headers["HTTP-Referer"] = "https://opencode.ai/"
-            provider.request.headers["X-Title"] = "opencode"
-            provider.request.headers["X-Source"] = "opencode"
+            provider.request.headers["HTTP-Referer"] = "https://xpengagent.cc.cd/"
+            provider.request.headers["X-Title"] = "xpengagent"
+            provider.request.headers["X-Source"] = "xpengagent"
           })
         }
       }),

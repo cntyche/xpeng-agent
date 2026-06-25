@@ -1,8 +1,8 @@
 import { describe, expect } from "bun:test"
 import { Effect } from "effect"
-import { ModelV2 } from "@opencode-ai/core/model"
-import { PluginV2 } from "@opencode-ai/core/plugin"
-import { MistralPlugin } from "@opencode-ai/core/plugin/provider/mistral"
+import { ModelV2 } from "@xpengagent/core/model"
+import { PluginV2 } from "@xpengagent/core/plugin"
+import { MistralPlugin } from "@xpengagent/core/plugin/provider/mistral"
 import { fakeSelectorSdk, it, model } from "./provider-helper"
 
 describe("MistralPlugin", () => {

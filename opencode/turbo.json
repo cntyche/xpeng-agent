@@ -1,25 +1,33 @@
 {
   "$schema": "https://v2-8-13.turborepo.dev/schema.json",
-  "globalEnv": ["CI", "OPENCODE_DISABLE_SHARE"],
-  "globalPassThroughEnv": ["CI", "OPENCODE_DISABLE_SHARE"],
+  "globalEnv": ["CI", "XPENGAGENT_DISABLE_SHARE"],
+  "globalPassThroughEnv": ["CI", "XPENGAGENT_DISABLE_SHARE"],
   "tasks": {
     "typecheck": {},
     "build": {
       "dependsOn": [],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**", ".output/**", "src/gen/**"]
     },
-    "opencode#test": {
+    "xpengagent#test": {
       "dependsOn": ["^build"],
       "outputs": [],
       "passThroughEnv": ["*"]
     },
-    "@opencode-ai/app#test": {
+    "@xpengagent/app#test": {
       "dependsOn": ["^build"],
       "outputs": []
     },
-    "@opencode-ai/ui#test": {
+    "@xpengagent/ui#test": {
       "dependsOn": ["^build"],
       "outputs": []
+    },
+    "@xpengagent/desktop#build": {
+      "dependsOn": ["xpengagent#build"],
+      "outputs": ["out/**"]
+    },
+    "@xpengagent/cli#build": {
+      "dependsOn": ["@xpengagent/sdk#build"],
+      "outputs": ["dist/**"]
     }
   }
 }

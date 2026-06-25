@@ -1,19 +1,19 @@
-import type { WslOpencodeCheck, WslServerRuntime } from "./types"
+import type { WslXpengagentCheck, WslServerRuntime } from "./types"
 
 export const wslRuntimeRetryable = (runtime: WslServerRuntime) =>
   runtime.kind === "failed" || runtime.kind === "stopped"
 
-export async function enterWslOpencodeStep(
+export async function enterWslXpengagentStep(
   distro: string,
   probe: (distro: string) => Promise<unknown>,
-  select: (step: "opencode") => void,
+  select: (step: "xpengagent") => void,
 ) {
   await probe(distro)
-  select("opencode")
+  select("xpengagent")
 }
 
-export function wslOpencodeAction(check?: WslOpencodeCheck) {
+export function wslXpengagentAction(check?: WslXpengagentCheck) {
   if (!check) return
-  if (!check.resolvedPath) return "Install OpenCode"
-  if (check.matchesDesktop === false) return "Update OpenCode"
+  if (!check.resolvedPath) return "Install XPENGagent"
+  if (check.matchesDesktop === false) return "Update XPENGagent"
 }

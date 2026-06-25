@@ -19,8 +19,20 @@ const sentry =
       })
     : false
 
+const tsFromJsPlugin = {
+  name: "xpengagent:resolve-js-to-ts",
+  enforce: "pre" as const,
+  async resolveId(source: string, importer?: string) {
+    if (!importer) return null
+    if (!source.endsWith(".js")) return null
+    const ts = source.slice(0, -3) + ".ts"
+    const resolved = await this.resolve(ts, importer, { skipSelf: true })
+    return resolved ?? null
+  },
+}
+
 export default defineConfig({
-  plugins: [desktopPlugin, sentry] as any,
+  plugins: [tsFromJsPlugin, desktopPlugin, sentry] as any,
   server: {
     host: "0.0.0.0",
     allowedHosts: true,

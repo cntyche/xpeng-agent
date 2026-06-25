@@ -1,6 +1,6 @@
-# OpenCode Desktop
+# XPENGagent Desktop
 
-The OpenCode Desktop app, built with Electron.
+The XPENGagent Desktop app, built with Electron.
 
 ## Development
 

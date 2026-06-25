@@ -81,19 +81,19 @@ beforeAll(async () => {
     useSearchParams: () => [{}, () => undefined],
   }))
 
-  mock.module("@opencode-ai/sdk/v2/client", () => ({
-    createOpencodeClient: (input: { directory: string }) => {
+  mock.module("@xpengagent/sdk/v2/client", () => ({
+    createXpengagentClient: (input: { directory: string }) => {
       createdClients.push(input.directory)
       return clientFor(input.directory)
     },
   }))
 
-  mock.module("@opencode-ai/ui/toast", () => ({
+  mock.module("@xpengagent/ui/toast", () => ({
     Toast: { Region: () => null },
     showToast: () => 0,
   }))
 
-  mock.module("@opencode-ai/core/util/encode", () => ({
+  mock.module("@xpengagent/core/util/encode", () => ({
     base64Encode: (value: string) => value,
   }))
 

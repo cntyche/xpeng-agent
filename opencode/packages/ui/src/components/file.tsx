@@ -1,4 +1,4 @@
-import { sampledChecksum } from "@opencode-ai/core/util/encode"
+import { sampledChecksum } from "@xpengagent/core/util/encode"
 import {
   areFilesEqual,
   areOptionsEqual,
