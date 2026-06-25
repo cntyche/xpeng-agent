@@ -66,7 +66,7 @@ The two adapters (private-tool-loader / private-tool-bridge) are the only files 
 
 | Phase | Trigger | Path |
 |-------|---------|------|
-| **Phase 1** | OpenCode startup resolves `opencode/ToolRegistry.layer` | Loads `private-agent/tools/tool-manifest.yaml` → registers tools into `custom[]` (V1) and `Tools.Service` (V2) |
+| **Phase 1** | XPENGagent startup resolves `opencode/ToolRegistry.layer` | Loads `private-agent/tools/tool-manifest.yaml` → registers tools into `custom[]` (V1) and `Tools.Service` (V2) |
 | **Phase 1** | `prompt()` initializes system array | `prompt.ts:1309` calls `PrivatePromptComposer.compose(...)` → appends to `system` |
 | **Phase 1** | V2 Runner initializes a session epoch | `loadSystemContext()` enumerates registry → returns the union (incl. **`xpeng/private-context`**) |
 | **Phase 1** | `agents.list()` called | The bridge has appended a `xpeng` Agent record to the per-instance registry |

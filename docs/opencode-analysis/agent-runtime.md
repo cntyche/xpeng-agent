@@ -99,7 +99,7 @@ Record-level fields at `agent.ts:35-56`:
 1. Create `opencode/packages/opencode/src/agent/private-agent-bridge.ts` exposing:
    - `registerPrivateAgent(info: Agent.Info): Effect<...>` — appends an agent entry to the per-instance registry.
    - `registerRouterAgent()` — adds the Router Agent.
-2. Add the bridge initialization to the `Agent.layer` factory (or to a sibling layer imported into `defaultLayer`) so the bridge runs as part of standard OpenCode startup.
+2. Add the bridge initialization to the `Agent.layer` factory (or to a sibling layer imported into `defaultLayer`) so the bridge runs as part of standard XPENGagent startup.
 3. Bridge emits additional `Permission.Rule[]` allowing `xpeng.*` and the private tool actions. The bridge consumes `private-agent/config/agents.yaml` (Phase 3.1) for fleet definitions.
 4. Patch `agent.ts` minimally: a single injection at the start of the `InstanceState.make<State>(...)` block to call into the bridge.
 5. Capture the change in `patches/agent-runtime.patch`.

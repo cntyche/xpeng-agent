@@ -10,13 +10,13 @@
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-OPENCODE_DIR="$REPO_ROOT/opencode"
+XPENGAGENT_DIR="$REPO_ROOT/opencode"
 PATCHES_DIR="$REPO_ROOT/patches"
 
 log() { printf "\033[1;34m[apply-patches]\033[0m %s\n" "$*"; }
-err() { printf "\033[1;31m[apply-patches]\033[0m %s\n" "$*" >&2; }
+err() { printf "\033[1;31m[apply-patches]\033[0m %s\n" "$*"; }
 
-[ -d "$OPENCODE_DIR" ] || { err "opencode/ directory missing"; exit 1; }
+[ -d "$XPENGAGENT_DIR" ] || { err "opencode/ directory missing"; exit 1; }
 [ -d "$PATCHES_DIR" ] || { err "patches/ directory missing"; exit 1; }
 
 target="${1:-}"
@@ -24,7 +24,7 @@ target="${1:-}"
 apply_patch() {
   local patch_file="$1"
   log "Applying $(basename "$patch_file")"
-  (cd "$OPENCODE_DIR" && git apply --whitespace=nowarn --3way "$patch_file") \
+  (cd "$XPENGAGENT_DIR" && git apply --whitespace=nowarn --3way "$patch_file") \
     || { err "Failed to apply $patch_file"; return 1; }
 }
 

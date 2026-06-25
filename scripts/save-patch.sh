@@ -10,16 +10,16 @@
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-OPENCODE_DIR="$REPO_ROOT/opencode"
+XPENGAGENT_DIR="$REPO_ROOT/opencode"
 PATCHES_DIR="$REPO_ROOT/patches"
 BASE_BRANCH="${BASE_BRANCH:-dev}"
 
 name="${1:-}"
 [ -n "$name" ] || { echo "Usage: $0 <patch-name>"; exit 1; }
 
-[ -d "$OPENCODE_DIR/.git" ] || { echo "opencode/.git missing"; exit 1; }
+[ -d "$XPENGAGENT_DIR/.git" ] || { echo "opencode/.git missing"; exit 1; }
 
-(cd "$OPENCODE_DIR" && {
+(cd "$XPENGAGENT_DIR" && {
   branch="$(git branch --show-current)"
   echo "[save-patch] current branch: $branch"
   echo "[save-patch] base branch:    $BASE_BRANCH"

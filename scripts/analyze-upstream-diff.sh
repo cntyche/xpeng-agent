@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # scripts/analyze-upstream-diff.sh
-# Surface touch-points in upstream OpenCode that may conflict with our modifications.
+# Surface touch-points in upstream XPENGagent that may conflict with our modifications.
 # Helps before merging.
 #
 # Usage:

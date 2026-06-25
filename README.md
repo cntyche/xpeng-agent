@@ -1,8 +1,8 @@
 # xPeng-Agent — Personal Professional Agent Workbench
 
-> Convert the upstream OpenCode dev tree (`opencode-dev`) into a private professional Agent workbench that delivers consulting-grade solution design, PPT generation, RAG knowledge assistance, long-term memory and multi-agent workflows — all without rewriting the upstream runtime.
+> Convert the upstream XPENGagent dev tree (`opencode-dev`) into a private professional Agent workbench that delivers consulting-grade solution design, PPT generation, RAG knowledge assistance, long-term memory and multi-agent workflows — all without rewriting the upstream runtime.
 
-This repository wraps upstream OpenCode inside a sibling `private-agent/` capability layer. We only **moderately extend** four control surfaces of upstream OpenCode (Agent Runtime, Tool Registry, Prompt Loader, Session Context); every professional capability lives in `private-agent/`.
+This repository wraps upstream XPENGagent inside a sibling `private-agent/` capability layer. We only **moderately extend** four control surfaces of upstream XPENGagent (Agent Runtime, Tool Registry, Prompt Loader, Session Context); every professional capability lives in `private-agent/`.
 
 The full execution plan lives in [`Task Tree.md`](../Task%20Tree.md) at the repo root. The high‑level design lives in [`XPENG-Agent.md`](../XPENG-Agent.md). Per‑phase technical notes live under [`docs/`](./docs).
 
@@ -12,7 +12,7 @@ The full execution plan lives in [`Task Tree.md`](../Task%20Tree.md) at the repo
 
 ```
 V1/                                  ← this repo (workbench root)
-├── opencode/                         ← upstream OpenCode fork (only control-layer changes go here)
+├── opencode/                         ← upstream XPENGagent fork (only control-layer changes go here)
 │   ├── packages/core/                ← Effect-TS service layer, session/runner V2, system-context, tool V2
 │   ├── packages/opencode/            ← Upper-layer business: agent/, session/prompt.ts (V1), tool/registry.ts
 │   └── ...                           (sdk, llm, tui, ui, app, desktop are untouched)
@@ -52,7 +52,7 @@ V1/                                  ← this repo (workbench root)
 
 We **never**:
 
-1. Rewrite the upstream OpenCode runtime.
+1. Rewrite the upstream XPENGagent runtime.
 2. Delete an official capability.
 3. Break the original coding-agent behaviors.
 4. Modify a module outside of the four allowed quadrants.
@@ -64,7 +64,7 @@ The four allowed deep‑modify quadrants are:
 |----------|-------------------|----------|
 | **Agent Runtime** | `opencode/packages/opencode/src/agent/*` | Add `private-agent-bridge.ts` next to the Agent service. Register a `--kind=private` Agent and route requests through a Router Agent. |
 | **Tool Registry** | `opencode/packages/opencode/src/tool/registry.ts` (440 LOC) + `opencode/packages/core/src/tool/registry.ts` (139 LOC) | Add `private-tool-loader.ts` that scans `private-agent/tools/tool-manifest.yaml`. Reuse the existing `Glob.scanSync` + dynamic import mechanism. |
-| **Prompt Loader** | `opencode/packages/opencode/src/session/prompt.ts` (1704 LOC, V1) | Add `private-prompt-composer.ts` invoked at the end of the `prompt()` method. Compose `OpenCode base + private-assistant + agent prompt + skill + memory + RAG + output format`. |
+| **Prompt Loader** | `opencode/packages/opencode/src/session/prompt.ts` (1704 LOC, V1) | Add `private-prompt-composer.ts` invoked at the end of the `prompt()` method. Compose `XPENGagent base + private-assistant + agent prompt + skill + memory + RAG + output format`. |
 | **Session Context** | V2: `opencode/packages/core/src/session/runner/llm.ts` (`loadSystemContext`) · V1: `opencode/packages/opencode/src/session/prompt.ts` | V2: implement a `SystemContext.Source` and register it via `system-context/registry`. V1: inject context during prompt assembly. |
 
 Every change in those quadrants is captured as a patch under `patches/` so that upstream merges stay reproducible.

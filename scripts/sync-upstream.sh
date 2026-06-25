@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # scripts/sync-upstream.sh
-# Pull the latest OpenCode upstream, produce a diff against the current private-base,
+# Pull the latest XPENGagent upstream, produce a diff against the current private-base,
 # and prepare an automation report for the analysis Agent.
 #
 # Usage:
@@ -12,7 +12,7 @@
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-OPENCODE_DIR="$REPO_ROOT/opencode"
+XPENGAGENT_DIR="$REPO_ROOT/opencode"
 UPSTREAM_REMOTE="${UPSTREAM_REMOTE:-upstream}"
 UPSTREAM_BRANCH="${UPSTREAM_BRANCH:-dev}"
 BASE_BRANCH="${BASE_BRANCH:-dev}"
@@ -20,9 +20,9 @@ BASE_BRANCH="${BASE_BRANCH:-dev}"
 log() { printf "\033[1;34m[sync-upstream]\033[0m %s\n" "$*"; }
 err() { printf "\033[1;31m[sync-upstream]\033[0m %s\n" "$*" >&2; }
 
-[ -d "$OPENCODE_DIR/.git" ] || { err "opencode/.git missing — not inside a submodule-like layout"; exit 1; }
+[ -d "$XPENGAGENT_DIR/.git" ] || { err "opencode/.git missing — not inside a submodule-like layout"; exit 1; }
 
-(cd "$OPENCODE_DIR" && {
+(cd "$XPENGAGENT_DIR" && {
   log "Fetching $UPSTREAM_REMOTE/$UPSTREAM_BRANCH"
   git fetch "$UPSTREAM_REMOTE" "$UPSTREAM_BRANCH"
 
@@ -53,7 +53,7 @@ err() { printf "\033[1;31m[sync-upstream]\033[0m %s\n" "$*" >&2; }
   git checkout "$BASE_BRANCH"
   git merge --no-ff "$UPSTREAM_REMOTE/$UPSTREAM_BRANCH" || {
     err "Merge conflict. Resolve manually with:"
-    err "  cd $OPENCODE_DIR"
+    err "  cd $XPENGAGENT_DIR"
     err "  git status"
     err "  # resolve conflicts, then git commit"
     exit 1

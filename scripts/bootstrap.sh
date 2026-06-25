@@ -6,7 +6,7 @@
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-OPENCODE_DIR="$REPO_ROOT/opencode"
+XPENGAGENT_DIR="$REPO_ROOT/opencode"
 
 log() { printf "\033[1;34m[bootstrap]\033[0m %s\n" "$*"; }
 warn() { printf "\033[1;33m[bootstrap]\033[0m %s\n" "$*" >&2; }
@@ -30,11 +30,11 @@ ensure_bun() {
   log "Bun installed: $(bun --version)"
 }
 
-install_opencode_deps() {
-  if [ -d "$OPENCODE_DIR" ]; then
-    log "Installing OpenCode monorepo dependencies (--ignore-scripts to skip native builds)..."
+install_xpengagent_deps() {
+  if [ -d "$XPENGAGENT_DIR" ]; then
+    log "Installing XPENGagent monorepo dependencies (--ignore-scripts to skip native builds)..."
     (
-      cd "$OPENCODE_DIR"
+      cd "$XPENGAGENT_DIR"
       bun install --ignore-scripts
     )
   else
@@ -73,18 +73,18 @@ ensure_workspace_dirs() {
 }
 
 verify_phase0() {
-  if [ -d "$OPENCODE_DIR" ]; then
+  if [ -d "$XPENGAGENT_DIR" ]; then
     log "Running bun run typecheck on packages/core ..."
-    (cd "$OPENCODE_DIR/packages/core" && bun run typecheck) || warn "typecheck failed"
-    log "Running bun run build on packages/opencode ..."
-    (cd "$OPENCODE_DIR/packages/opencode" && bun run build) || warn "build failed"
+    (cd "$XPENGAGENT_DIR/packages/core" && bun run typecheck) || warn "typecheck failed"
+    log "Running bun run build on packages/xpengagent ..."
+    (cd "$XPENGAGENT_DIR/packages/opencode" && bun run build) || warn "build failed"
   fi
 }
 
 main() {
   log "Repo root: $REPO_ROOT"
   ensure_bun
-  install_opencode_deps
+  install_xpengagent_deps
   ensure_workspace_dirs
   verify_phase0
   log "Bootstrap complete. Next steps:"
