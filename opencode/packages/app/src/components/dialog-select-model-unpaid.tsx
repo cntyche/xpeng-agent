@@ -59,7 +59,7 @@ export const DialogSelectModelUnpaid: Component<{ model?: ModelState }> = (props
                 <ModelTooltip
                   model={item}
                   latest={item.latest}
-                  free={item.provider.id === "xpengagent" && (!item.cost || item.cost.input === 0)}
+                  free={(item.provider.id === "xpengagent" || item.provider.id === "xpengagent-free") && (!item.cost || item.cost.input === 0)}
                 />
               }
             >
@@ -113,6 +113,9 @@ export const DialogSelectModelUnpaid: Component<{ model?: ModelState }> = (props
                     </Show>
                     <Show when={i.id === "xpengagent"}>
                       <Tag>{language.t("dialog.provider.tag.recommended")}</Tag>
+                    </Show>
+                    <Show when={i.id === "xpengagent-free"}>
+                      <Tag>{language.t("model.tag.free")}</Tag>
                     </Show>
                     <Show when={i.id === "xpengagent-go"}>
                       <>

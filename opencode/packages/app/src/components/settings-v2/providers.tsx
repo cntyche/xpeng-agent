@@ -197,7 +197,7 @@ export const SettingsProvidersV2: Component = () => {
                     <div class="settings-v2-provider-copy">
                       <div class="settings-v2-provider-main">
                         <span class="settings-v2-provider-name">{item.name}</span>
-                        <Show when={item.id === "xpengagent" || item.id === "xpengagent-go"}>
+                        <Show when={item.id === "xpengagent" || item.id === "xpengagent-go" || item.id === "xpengagent-free"}>
                           <Tag>{language.t("dialog.provider.tag.recommended")}</Tag>
                         </Show>
                       </div>

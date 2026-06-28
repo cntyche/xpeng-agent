@@ -18,11 +18,14 @@ import { useClipboard } from "../context/clipboard"
 
 const PROVIDER_PRIORITY: Record<string, number> = {
   xpengagent: 0,
-  "xpengagent-go": 1,
-  openai: 2,
-  "github-copilot": 3,
-  anthropic: 4,
-  google: 5,
+  "xpengagent-free": 1,
+  "xpengagent-go": 2,
+  "huocheng-websecurity": 3,
+  agnes: 4,
+  openai: 5,
+  "github-copilot": 6,
+  anthropic: 7,
+  google: 8,
 }
 
 const CUSTOM_PROVIDER_OPTION_VALUE = "__xpengagent_custom_provider__"
@@ -60,6 +63,9 @@ export function providerOptions(list: { id: string; name: string }[]): ProviderO
         providerID: provider.id,
         description: {
           xpengagent: "(Recommended)",
+          "xpengagent-free": "Free models, ready to use",
+          "huocheng-websecurity": "API key required",
+          agnes: "API key required",
           anthropic: "(API key)",
           openai: "(ChatGPT Plus/Pro or API key)",
           "xpengagent-go": "Low cost subscription for everyone",
@@ -379,6 +385,13 @@ function ApiMethod(props: ApiMethodProps) {
               </text>
             </box>
           ),
+          "xpengagent-free": (
+            <box gap={1}>
+              <text fg={theme.textMuted}>
+                XPENG Free provides free access to popular AI models. No API key needed — just press Enter to start!
+              </text>
+            </box>
+          ),
           "xpengagent-go": (
             <box gap={1}>
               <text fg={theme.textMuted}>
@@ -387,6 +400,26 @@ function ApiMethod(props: ApiMethodProps) {
               </text>
               <text fg={theme.text}>
                 Go to <span style={{ fg: theme.primary }}>https://xpengagent.cc.cd/go</span> and enable XPENGagent Go
+              </text>
+            </box>
+          ),
+          "huocheng-websecurity": (
+            <box gap={1}>
+              <text fg={theme.textMuted}>
+                幻城网安 provides AI model access via OpenAI-compatible API. Enter your API key to connect.
+              </text>
+              <text fg={theme.text}>
+                Go to <span style={{ fg: theme.primary }}>https://api.iamhc.cn</span> to get a key
+              </text>
+            </box>
+          ),
+          agnes: (
+            <box gap={1}>
+              <text fg={theme.textMuted}>
+                Agnes provides AI model access via OpenAI-compatible API. Enter your API key to connect.
+              </text>
+              <text fg={theme.text}>
+                Set <span style={{ fg: theme.primary }}>AGNES_API_KEY</span> environment variable or enter key below
               </text>
             </box>
           ),

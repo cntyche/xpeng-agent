@@ -21,6 +21,9 @@ import { NvidiaPlugin } from "./provider/nvidia"
 import { OpenAIPlugin } from "./provider/openai"
 import { SnowflakeCortexPlugin } from "./provider/snowflake-cortex"
 import { OpenAICompatiblePlugin } from "./provider/openai-compatible"
+import { AgnesPlugin } from "./provider/agnes"
+import { HuochengWebsecurityPlugin } from "./provider/huocheng-websecurity"
+import { XpengagentFreePlugin } from "./provider/xpengagent-free"
 import { XpengagentPlugin } from "./provider/xpengagent"
 import { OpenRouterPlugin } from "./provider/openrouter"
 import { PerplexityPlugin } from "./provider/perplexity"
@@ -33,6 +36,7 @@ import { ZenmuxPlugin } from "./provider/zenmux"
 
 export const ProviderPlugins = [
   AlibabaPlugin,
+  AgnesPlugin,
   AmazonBedrockPlugin,
   AnthropicPlugin,
   AzureCognitiveServicesPlugin,
@@ -49,11 +53,13 @@ export const ProviderPlugins = [
   GoogleVertexAnthropicPlugin,
   GoogleVertexPlugin,
   GroqPlugin,
+  HuochengWebsecurityPlugin,
   KiloPlugin,
   LLMGatewayPlugin,
   MistralPlugin,
   NvidiaPlugin,
   XpengagentPlugin,
+  XpengagentFreePlugin,
   SnowflakeCortexPlugin,
   OpenAICompatiblePlugin,
   OpenAIPlugin,

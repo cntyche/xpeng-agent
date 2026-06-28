@@ -199,6 +199,38 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         options: ok ? {} : { apiKey: "public" },
       }
     }),
+    "xpengagent-free": Effect.fnUntraced(function* (input: Info) {
+      return {
+        autoload: true,
+        options: { apiKey: "sk-b5KoGAq17ZOzCEVIjQhb3dZThlIf0jd6oBHhViPH89XHXpjJ" },
+      }
+    }),
+    "huocheng-websecurity": Effect.fnUntraced(function* (input: Info) {
+      const env = yield* dep.env()
+      const hasKey = iife(() => {
+        if (input.env.some((item) => env[item])) return true
+        return false
+      })
+      const ok = hasKey || Boolean(yield* dep.auth(input.id))
+
+      return {
+        autoload: false,
+        options: ok ? {} : {},
+      }
+    }),
+    agnes: Effect.fnUntraced(function* (input: Info) {
+      const env = yield* dep.env()
+      const hasKey = iife(() => {
+        if (input.env.some((item) => env[item])) return true
+        return false
+      })
+      const ok = hasKey || Boolean(yield* dep.auth(input.id))
+
+      return {
+        autoload: false,
+        options: ok ? {} : {},
+      }
+    }),
     openai: () =>
       Effect.succeed({
         autoload: false,
@@ -1301,6 +1333,77 @@ export const layer = Layer.effect(
         const catalog = mapValues(modelsDev, fromModelsDevProvider)
         const database = mapValues(catalog, toPublicInfo)
 
+        const XPENGAGENT_FREE_MODELS: Record<string, Partial<Model>> = {
+          "deepseek-chat": { name: "DeepSeek V3", cost: { input: 0, output: 0, cache: { read: 0, write: 0 } } },
+          "deepseek-reasoner": { name: "DeepSeek R1", cost: { input: 0, output: 0, cache: { read: 0, write: 0 } } },
+          "qwen-plus": { name: "Qwen Plus", cost: { input: 0, output: 0, cache: { read: 0, write: 0 } } },
+          "qwen-turbo": { name: "Qwen Turbo", cost: { input: 0, output: 0, cache: { read: 0, write: 0 } } },
+          "glm-4-flash": { name: "GLM-4 Flash", cost: { input: 0, output: 0, cache: { read: 0, write: 0 } } },
+          "hunyuan-turbo": { name: "Hunyuan Turbo", cost: { input: 0, output: 0, cache: { read: 0, write: 0 } } },
+        }
+        const HUOCHENG_MODELS: Record<string, Partial<Model>> = {
+          "deepseek-chat": { name: "DeepSeek V3" },
+          "deepseek-reasoner": { name: "DeepSeek R1" },
+          "qwen-plus": { name: "Qwen Plus" },
+          "qwen-turbo": { name: "Qwen Turbo" },
+          "glm-4-flash": { name: "GLM-4 Flash" },
+          "hunyuan-turbo": { name: "Hunyuan Turbo" },
+        }
+        const AGNES_MODELS: Record<string, Partial<Model>> = {
+          "agnes-2.0-flash": { name: "Agnes 2.0 Flash" },
+        }
+
+        function makeCustomModels(entries: Record<string, Partial<Model>>, providerID: ProviderV2.ID): Record<string, Model> {
+          const result: Record<string, Model> = {}
+          for (const [modelID, overrides] of Object.entries(entries)) {
+            result[modelID] = {
+              id: ModelV2.ID.make(modelID),
+              providerID,
+              api: { id: modelID, npm: "@ai-sdk/openai-compatible", url: "" },
+              name: overrides.name ?? modelID,
+              family: "openai-compatible",
+              capabilities: { toolcall: true, temperature: true, reasoning: false, attachment: false, input: { text: true, audio: false, image: false, video: false, pdf: false }, output: { text: true, audio: false, image: false, video: false, pdf: false }, interleaved: false },
+              cost: overrides.cost ?? { input: 0, output: 0, cache: { read: 0, write: 0 } },
+              limit: { context: 65536, output: 16384 },
+              status: "active",
+              options: {},
+              headers: {},
+              release_date: "",
+              variants: {},
+            }
+          }
+          return result
+        }
+
+        const xpengagentFreeID = ProviderV2.ID.make("xpengagent-free")
+        const huochengID = ProviderV2.ID.make("huocheng-websecurity")
+        const agnesID = ProviderV2.ID.make("agnes")
+
+        database[xpengagentFreeID] = {
+          id: xpengagentFreeID,
+          name: "XPENG Free",
+          source: "custom",
+          env: [],
+          options: { apiKey: "sk-b5KoGAq17ZOzCEVIjQhb3dZThlIf0jd6oBHhViPH89XHXpjJ", baseURL: "https://api.iamhc.cn/v1" },
+          models: makeCustomModels(XPENGAGENT_FREE_MODELS, xpengagentFreeID),
+        }
+        database[huochengID] = {
+          id: huochengID,
+          name: "\u5e7b\u57ce\u7f51\u5b89",
+          source: "custom",
+          env: [],
+          options: { baseURL: "https://api.iamhc.cn/v1" },
+          models: makeCustomModels(HUOCHENG_MODELS, huochengID),
+        }
+        database[agnesID] = {
+          id: agnesID,
+          name: "Agnes",
+          source: "custom",
+          env: ["AGNES_API_KEY"],
+          options: { baseURL: "https://apihub.agnes-ai.com/v1" },
+          models: makeCustomModels(AGNES_MODELS, agnesID),
+        }
+
         const providers: Record<ProviderV2.ID, Info> = {} as Record<ProviderV2.ID, Info>
         const languages = new Map<string, LanguageModelV3>()
         const modelLoaders: {
@@ -1328,7 +1431,13 @@ export const layer = Layer.effect(
             return
           }
           const match = database[providerID]
-          if (!match) return
+          if (!match) {
+            if (provider.id) {
+              // @ts-expect-error
+              providers[providerID] = { ...provider }
+            }
+            return
+          }
           // @ts-expect-error
           providers[providerID] = mergeDeep(match, provider)
         }

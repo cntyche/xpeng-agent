@@ -14,7 +14,7 @@ import { ModelTooltip } from "./model-tooltip"
 import { useLanguage } from "@/context/language"
 
 const isFree = (provider: string, cost: { input: number } | undefined) =>
-  provider === "xpengagent" && (!cost || cost.input === 0)
+  (provider === "xpengagent" || provider === "xpengagent-free") && (!cost || cost.input === 0)
 
 type ModelState = ReturnType<typeof useLocal>["model"]
 

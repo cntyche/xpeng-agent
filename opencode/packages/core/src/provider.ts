@@ -8,6 +8,9 @@ export const ID = Schema.String.pipe(
   withStatics((schema) => ({
     // Well-known providers
     xpengagent: schema.make("xpengagent"),
+    xpengagentFree: schema.make("xpengagent-free"),
+    huochengWebsecurity: schema.make("huocheng-websecurity"),
+    agnes: schema.make("agnes"),
     anthropic: schema.make("anthropic"),
     openai: schema.make("openai"),
     google: schema.make("google"),

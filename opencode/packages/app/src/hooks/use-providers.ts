@@ -6,7 +6,10 @@ import { createMemo } from "solid-js"
 
 export const popularProviders = [
   "xpengagent",
+  "xpengagent-free",
   "xpengagent-go",
+  "huocheng-websecurity",
+  "agnes",
   "anthropic",
   "github-copilot",
   "openai",

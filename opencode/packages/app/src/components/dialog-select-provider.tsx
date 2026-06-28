@@ -75,6 +75,9 @@ export const DialogSelectProvider: Component = () => {
             <Show when={i.id === "xpengagent"}>
               <Tag>{language.t("dialog.provider.tag.recommended")}</Tag>
             </Show>
+            <Show when={i.id === "xpengagent-free"}>
+              <Tag>{language.t("model.tag.free")}</Tag>
+            </Show>
             <Show when={note(i.id)}>{(value) => <div class="text-14-regular text-text-weak">{value()}</div>}</Show>
             <Show when={i.id === "xpengagent-go"}>
               <Tag>{language.t("dialog.provider.tag.recommended")}</Tag>
