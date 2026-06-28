@@ -136,11 +136,11 @@ download() {
   info "Installed xpengagent to ${INSTALL_DIR}/${bin_name}"
 
   if ! echo "$PATH" | grep -q "$INSTALL_DIR"; then
-    warn "Add ${INSTALL_DIR} to your PATH:"
     local shell_rc="$HOME/.bashrc"
     if [ -f "$HOME/.zshrc" ]; then shell_rc="$HOME/.zshrc"; fi
-    warn "  echo 'export PATH=\"${INSTALL_DIR}:\$PATH\"' >> ${shell_rc}"
-    warn "  source ${shell_rc}"
+    echo "export PATH=\"${INSTALL_DIR}:\$PATH\"" >> "$shell_rc"
+    export PATH="${INSTALL_DIR}:$PATH"
+    info "Added ${INSTALL_DIR} to PATH (current session + ${shell_rc})"
   fi
 }
 

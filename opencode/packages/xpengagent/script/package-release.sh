@@ -1,9 +1,16 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-DIST_DIR="$(cd "$(dirname "$0")/../dist" && pwd)"
-OUTPUT_DIR="${1:-./release}"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+DIST_DIR="$SCRIPT_DIR/../dist"
+RAW_OUTPUT="${1:-./release}"
 VERSION="${2:-0.0.0-dev-$(date +%Y%m%d%H%M)}"
+
+if [[ "$RAW_OUTPUT" != /* ]]; then
+  OUTPUT_DIR="$(pwd)/$RAW_OUTPUT"
+else
+  OUTPUT_DIR="$RAW_OUTPUT"
+fi
 
 mkdir -p "$OUTPUT_DIR/$VERSION"
 
@@ -45,7 +52,7 @@ cat > "$OUTPUT_DIR/$VERSION/version.json" << EOF
 }
 EOF
 
-cp "$(dirname "$0")/install.sh" "$OUTPUT_DIR/$VERSION/install.sh"
+cp "$SCRIPT_DIR/install.sh" "$OUTPUT_DIR/$VERSION/install.sh"
 chmod +x "$OUTPUT_DIR/$VERSION/install.sh"
 
 echo ""
