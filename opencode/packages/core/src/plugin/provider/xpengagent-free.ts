@@ -6,36 +6,11 @@ import { ProviderV2 } from "../../provider"
 const DEFAULT_API_KEY = "sk-b5KoGAq17ZOzCEVIjQhb3dZThlIf0jd6oBHhViPH89XHXpjJ"
 const BASE_URL = "https://api.iamhc.cn/v1"
 
-const MODELS: Record<string, { name: string; context: number; cost: { input: number; output: number } }> = {
-  "deepseek-chat": {
-    name: "DeepSeek V3",
-    context: 65536,
-    cost: { input: 0, output: 0 },
-  },
-  "deepseek-reasoner": {
-    name: "DeepSeek R1",
-    context: 65536,
-    cost: { input: 0, output: 0 },
-  },
-  "qwen-plus": {
-    name: "Qwen Plus",
+const MODELS: Record<string, { name: string; context: number; cost: { input: number; output: number; cache: { read: number; write: number } } }> = {
+  "auto": {
+    name: "Auto",
     context: 131072,
-    cost: { input: 0, output: 0 },
-  },
-  "qwen-turbo": {
-    name: "Qwen Turbo",
-    context: 131072,
-    cost: { input: 0, output: 0 },
-  },
-  "glm-4-flash": {
-    name: "GLM-4 Flash",
-    context: 128000,
-    cost: { input: 0, output: 0 },
-  },
-  "hunyuan-turbo": {
-    name: "Hunyuan Turbo",
-    context: 32768,
-    cost: { input: 0, output: 0 },
+    cost: { input: 0, output: 0, cache: { read: 0, write: 0 } },
   },
 }
 

@@ -1334,20 +1334,10 @@ export const layer = Layer.effect(
         const database = mapValues(catalog, toPublicInfo)
 
         const XPENGAGENT_FREE_MODELS: Record<string, Partial<Model>> = {
-          "deepseek-chat": { name: "DeepSeek V3", cost: { input: 0, output: 0, cache: { read: 0, write: 0 } } },
-          "deepseek-reasoner": { name: "DeepSeek R1", cost: { input: 0, output: 0, cache: { read: 0, write: 0 } } },
-          "qwen-plus": { name: "Qwen Plus", cost: { input: 0, output: 0, cache: { read: 0, write: 0 } } },
-          "qwen-turbo": { name: "Qwen Turbo", cost: { input: 0, output: 0, cache: { read: 0, write: 0 } } },
-          "glm-4-flash": { name: "GLM-4 Flash", cost: { input: 0, output: 0, cache: { read: 0, write: 0 } } },
-          "hunyuan-turbo": { name: "Hunyuan Turbo", cost: { input: 0, output: 0, cache: { read: 0, write: 0 } } },
+          "auto": { name: "Auto", cost: { input: 0, output: 0, cache: { read: 0, write: 0 } } },
         }
         const HUOCHENG_MODELS: Record<string, Partial<Model>> = {
-          "deepseek-chat": { name: "DeepSeek V3" },
-          "deepseek-reasoner": { name: "DeepSeek R1" },
-          "qwen-plus": { name: "Qwen Plus" },
-          "qwen-turbo": { name: "Qwen Turbo" },
-          "glm-4-flash": { name: "GLM-4 Flash" },
-          "hunyuan-turbo": { name: "Hunyuan Turbo" },
+          "auto": { name: "Auto", cost: { input: 0, output: 0, cache: { read: 0, write: 0 } } },
         }
         const AGNES_MODELS: Record<string, Partial<Model>> = {
           "agnes-2.0-flash": { name: "Agnes 2.0 Flash" },

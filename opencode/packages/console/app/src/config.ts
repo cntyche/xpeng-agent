@@ -7,7 +7,7 @@ export const config = {
 
   // GitHub
   github: {
-    repoUrl: "https://github.com/anomalyco/xpengagent",
+    repoUrl: "https://github.com/cntyche/xpeng-agent",
     starsFormatted: {
       compact: "160K",
       full: "160,000",

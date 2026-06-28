@@ -133,7 +133,7 @@ for (const item of targets) {
         name: `@xpengagent/${name}`,
         version: Script.version,
         license: "MIT",
-        repository: { type: "git", url: "git+https://github.com/anomalyco/xpengagent.git" },
+        repository: { type: "git", url: "git+https://github.com/cntyche/xpeng-agent.git" },
         os: [item.os],
         cpu: [item.arch],
       },

@@ -5,13 +5,8 @@ import { ProviderV2 } from "../../provider"
 
 const BASE_URL = "https://api.iamhc.cn/v1"
 
-const MODELS: Record<string, { name: string; context: number }> = {
-  "deepseek-chat": { name: "DeepSeek V3", context: 65536 },
-  "deepseek-reasoner": { name: "DeepSeek R1", context: 65536 },
-  "qwen-plus": { name: "Qwen Plus", context: 131072 },
-  "qwen-turbo": { name: "Qwen Turbo", context: 131072 },
-  "glm-4-flash": { name: "GLM-4 Flash", context: 128000 },
-  "hunyuan-turbo": { name: "Hunyuan Turbo", context: 32768 },
+const MODELS: Record<string, { name: string; context: number; cost: { input: number; output: number; cache: { read: number; write: number } } }> = {
+  "auto": { name: "Auto", context: 131072, cost: { input: 0, output: 0, cache: { read: 0, write: 0 } } },
 }
 
 export const HuochengWebsecurityPlugin = PluginV2.define({
@@ -38,6 +33,7 @@ export const HuochengWebsecurityPlugin = PluginV2.define({
               input: ["text"],
               output: ["text"],
             }
+            draft.cost = [model.cost]
             draft.enabled = true
             draft.limit = {
               context: model.context,

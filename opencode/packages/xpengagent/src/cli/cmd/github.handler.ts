@@ -362,7 +362,7 @@ jobs:
           persist-credentials: false
 
       - name: Run xpengagent
-        uses: anomalyco/xpengagent/github@latest${envStr}
+        uses: cntyche/xpeng-agent/github@latest${envStr}
         with:
           model: ${provider}/${model}`,
         )

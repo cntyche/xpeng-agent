@@ -31,13 +31,13 @@ const xml = `<?xml version="1.0" encoding="UTF-8"?>
 
   <content_rating type="oars-1.1" />
 
-  <url type="bugtracker">https://github.com/anomalyco/xpengagent/issues</url>
+  <url type="bugtracker">https://github.com/cntyche/xpeng-agent/issues</url>
   <url type="homepage">https://xpengagent.cc.cd</url>
-  <url type="vcs-browser">https://github.com/anomalyco/xpengagent</url>
+  <url type="vcs-browser">https://github.com/cntyche/xpeng-agent</url>
 
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/anomalyco/xpengagent/b75d4d1c5ec449585d515c756fc81f080a157a9a/packages/web/src/assets/lander/screenshot.png</image>
+      <image>https://raw.githubusercontent.com/cntyche/xpeng-agent/b75d4d1c5ec449585d515c756fc81f080a157a9a/packages/web/src/assets/lander/screenshot.png</image>
     </screenshot>
   </screenshots>
 </component>
